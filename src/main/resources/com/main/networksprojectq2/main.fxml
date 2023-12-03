@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="920.0" stylesheets="@../../../style/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.networksprojectq2.Controller">
+   <children>
+      <TextField fx:id="usernameField" layoutX="88.0" layoutY="30.0" prefWidth="142.0" />
+      <Label layoutX="14.0" layoutY="32.0" text="Username">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="loginLogoutButton" layoutX="252.0" layoutY="30.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="54.0" text="Login" />
+      <ScrollPane fx:id="chatPane" hbarPolicy="NEVER" layoutX="14.0" layoutY="68.0" prefHeight="300.0" prefWidth="418.0" vbarPolicy="ALWAYS">
+         <content>
+            <VBox fx:id="chatVBox" prefWidth="400.0" styleClass="chatVBox">
+               <children>
+                  <Pane prefWidth="371.0" styleClass="receivedMessagePane">
+                     <children>
+                        <HBox prefWidth="400.0">
+                           <children>
+                              <StackPane prefWidth="250.0" styleClass="messageContentPane">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="messageContentText" text="Hello world" wrappingWidth="210.0" />
+                                 </children>
+                              </StackPane>
+                              <StackPane alignment="CENTER_LEFT" prefWidth="150.0" styleClass="messageDatePane">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="messageDateText" text="10:6969" />
+                                 </children>
+                              </StackPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </Pane>
+                  <Pane prefWidth="371.0" styleClass="receivedMessagePane">
+                     <children>
+                        <StackPane prefWidth="400.0" styleClass="messageContentPane">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="messageContentText" text="Hello world" wrappingWidth="210.0" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </Pane>
+                  <Pane prefWidth="371.0" styleClass="receivedMessagePane">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <children>
+                        <StackPane prefWidth="400.0" styleClass="messageContentPane">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="messageContentText" text="Hello world" wrappingWidth="210.0" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </Pane>
+                  <Pane prefWidth="371.0" styleClass="sentMessagePane">
+                     <children>
+                        <HBox>
+                           <children>
+                              <StackPane prefWidth="250.0" styleClass="messageContentPane">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="messageContentText" text="Hello world" wrappingWidth="210.0" />
+                                 </children>
+                              </StackPane>
+                              <StackPane alignment="CENTER_LEFT" prefWidth="100.0" styleClass="messageDatePane">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="messageDateText" text="10:6969" />
+                                 </children>
+                              </StackPane>
+                              <Button fx:id="deleteMessageButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="16.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </Pane>
+               </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <TextField fx:id="chatField" layoutX="14.0" layoutY="385.0" onAction="#sendButtonClicked" prefHeight="26.0" prefWidth="361.0" />
+      <Button fx:id="sendButton" layoutX="375.0" layoutY="385.0" mnemonicParsing="false" onMouseClicked="#sendButtonClicked" prefHeight="26.0" prefWidth="39.0" />
+      <Label layoutX="142.0" layoutY="439.0" text="Status">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="statusArea" editable="false" layoutX="189.0" layoutY="431.0" prefHeight="38.0" prefWidth="354.0" />
+      <Label layoutX="448.0" layoutY="32.0" text="TCP Server IP:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="448.0" layoutY="69.0" text="TCP Server Port:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="TCPServerIPField" layoutX="558.0" layoutY="31.0" prefHeight="26.0" prefWidth="106.0" />
+      <TextField fx:id="TCPServerPortField" layoutX="558.0" layoutY="66.0" prefHeight="26.0" prefWidth="106.0" />
+      <Label layoutX="448.0" layoutY="105.0" text="Available Interfaces">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="448.0" layoutY="187.0" text="Local IP:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="localIPField" editable="false" layoutX="533.0" layoutY="184.0" prefHeight="26.0" prefWidth="106.0" />
+      <Label layoutX="448.0" layoutY="223.0" text="Local Port:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="localPortField" layoutX="533.0" layoutY="220.0" prefHeight="26.0" prefWidth="106.0" />
+      <Label layoutX="449.0" layoutY="272.0" text="Remote IP">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="449.0" layoutY="309.0" text="Remote Port:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="remoteIPField" layoutX="533.0" layoutY="271.0" prefHeight="26.0" prefWidth="106.0" />
+      <TextField fx:id="remotePortField" layoutX="533.0" layoutY="306.0" prefHeight="26.0" prefWidth="106.0" />
+      <Button layoutX="543.0" layoutY="358.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Test" />
+      <Pane fx:id="onlineUsersPane" layoutX="686.0" layoutY="52.0" prefHeight="418.0" prefWidth="214.0" />
+      <Label layoutX="754.0" layoutY="20.0" text="Online Users">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="interfacesComboBox" layoutX="448.0" layoutY="142.0" onAction="#interfacesComboBoxOnChanged" prefHeight="26.0" prefWidth="214.0" />
+      <Button fx:id="deleteAllButton" layoutX="396.0" layoutY="37.0" mnemonicParsing="false" onAction="#deleteAllButtonClicked" prefHeight="26.0" prefWidth="23.0" />
+   </children>
+</AnchorPane>

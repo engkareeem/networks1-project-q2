@@ -1,0 +1,122 @@
+.chatVBox {
+    -fx-spacing: 10px;
+    -fx-pref-width: 400px;
+}
+
+#chatPane {
+    -fx-background-color: transparent;
+    -fx-border-color: grey;
+    -fx-border-radius: 5px;
+}
+
+#onlineUsersPane {
+    -fx-background-color: white;
+}
+#sendButton {
+    -fx-background-image: url('../img/send.png');
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+}
+#sendButton:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.13);
+}
+#sendButton:pressed {
+    -fx-background-color: rgba(0, 0, 0, 0.16);
+}
+#statusArea{
+    -fx-background-color: transparent;
+}
+
+
+
+
+.messageContentPane {
+    -fx-padding: 10px 20px 0 20px;
+    -fx-pref-width: 200px;
+}
+
+.deleteMessageButton {
+    -fx-background-image: url("../img/remove1.png");
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: bottom;
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+    -fx-opacity: 0.6;
+}
+
+.deleteMessageButton:hover {
+    -fx-opacity: 1;
+}
+
+
+#deleteAllButton {
+    -fx-background-image: url("../img/delete.png");
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+/*    Timestamp       */
+.messageDatePane {
+    -fx-padding: 0 5px 0 5px;
+    -fx-pref-width: 140px;
+}
+.messageDatePane .messageDateText {
+    -fx-fill: grey;
+}
+/*------------------*/
+
+/*     Received Message    */
+.receivedMessagePane {
+    -fx-padding: 5;
+    -fx-background-color: green;
+    -fx-end-margin: 10px;
+
+    -fx-background-insets: 0 0 0 150px;
+    -fx-background-radius: 10px 20px 0 10px;
+}
+.receivedMessagePane .messageContentPane {
+    -fx-alignment: center_right;
+}
+.receivedMessagePane .messageDatePane {
+    -fx-alignment: bottom_right;
+}
+.receivedMessagePane .messageContentPane .messageContentText {
+    -fx-text-alignment: right;
+}
+
+/*--------------------------*/
+
+/*         Sent Message      */
+.messageContentPane .messageContentText {
+    -fx-fill: white;
+    -fx-font-size: 13px;
+    -fx-background-color: yellow;
+}
+
+.sentMessagePane {
+    -fx-padding: 5;
+    -fx-background-color: #fd4747;
+    -fx-end-margin: 10px;
+    -fx-background-insets: 0 150px 0 0;
+    -fx-border-insets: 0 150px 0 0;
+    -fx-background-radius: 20px 10px 10px 0;
+}
+.sentMessagePane .messageContentPane {
+    -fx-alignment: center_left;
+}
+
+.sentMessagePane .messageContentPane .messageContentText {
+    -fx-text-alignment: left;
+}
+
+.sentMessagePane .messageDatePane {
+    -fx-alignment: bottom_left;
+    -fx-padding: 0 5px 0 20px;
+}
+/*---------------------------------*/
