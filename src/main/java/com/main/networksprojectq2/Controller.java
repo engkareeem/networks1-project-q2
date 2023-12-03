@@ -5,10 +5,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -33,6 +30,12 @@ public class Controller implements Initializable {
     ComboBox<String> interfacesComboBox;
     @FXML
     TextArea statusArea;
+    @FXML
+    TextField usernameField,passwordField;
+    @FXML
+    Button loginLogoutButton;
+
+    boolean isLogin = false;
 
     public static Stage currentStage;
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -83,6 +86,23 @@ public class Controller implements Initializable {
 
 
 
+    public void loginLogoutButtonClicked() {
+        // TODO: Login Logout Button
+
+        // if the login failed or the logout, return the function...
+
+        if(isLogin) {
+            isLogin = false;
+            loginLogoutButton.setText("Login");
+        } else {
+            isLogin = true;
+            loginLogoutButton.setText("Logout");
+        }
+    }
+
+
+
+
     public void sendButtonClicked() {
         if(!chatField.getText().isEmpty() && !remoteIPField.getText().isEmpty() && !remotePortField.getText().isEmpty()) {
             String message = chatField.getText();
@@ -123,6 +143,8 @@ public class Controller implements Initializable {
             Functions.sendUDP("CMD@deleteAll@", ip, Integer.parseInt(port), "");
         }
     }
+
+
 
 
 }

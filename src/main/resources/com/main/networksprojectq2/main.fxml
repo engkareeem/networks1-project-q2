@@ -17,13 +17,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="920.0" stylesheets="@../../../style/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.networksprojectq2.Controller">
    <children>
-      <TextField fx:id="usernameField" layoutX="88.0" layoutY="30.0" prefWidth="142.0" />
-      <Label layoutX="14.0" layoutY="32.0" text="Username">
+      <TextField fx:id="usernameField" layoutX="84.0" layoutY="7.0" prefHeight="26.0" prefWidth="143.0" />
+      <Label layoutX="14.0" layoutY="10.0" text="Username:">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="loginLogoutButton" layoutX="252.0" layoutY="30.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="54.0" text="Login" />
+      <Button fx:id="loginLogoutButton" layoutX="243.0" layoutY="37.0" mnemonicParsing="false" onAction="#loginLogoutButtonClicked" prefHeight="26.0" prefWidth="54.0" text="Login" />
       <ScrollPane fx:id="chatPane" hbarPolicy="NEVER" layoutX="14.0" layoutY="68.0" prefHeight="300.0" prefWidth="418.0" vbarPolicy="ALWAYS">
          <content>
             <VBox fx:id="chatVBox" prefWidth="400.0" styleClass="chatVBox">
@@ -151,5 +151,11 @@
       </Label>
       <ComboBox fx:id="interfacesComboBox" layoutX="448.0" layoutY="142.0" onAction="#interfacesComboBoxOnChanged" prefHeight="26.0" prefWidth="214.0" />
       <Button fx:id="deleteAllButton" layoutX="396.0" layoutY="37.0" mnemonicParsing="false" onAction="#deleteAllButtonClicked" prefHeight="26.0" prefWidth="23.0" />
+      <TextField fx:id="passwordField" layoutX="84.0" layoutY="37.0" prefHeight="26.0" prefWidth="143.0" />
+      <Label layoutX="14.0" layoutY="40.0" text="Password:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
