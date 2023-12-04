@@ -88,8 +88,6 @@ public class Controller implements Initializable {
 
     public void loginLogoutButtonClicked() {
 
-
-
         if(isLogin) {
             loginLogoutButton.setDisable(true);
             Functions.logout();
@@ -102,15 +100,20 @@ public class Controller implements Initializable {
             loginLogoutButton.setDisable(false);
         } else {
             loginLogoutButton.setDisable(true);
-            if(Functions.login(usernameField.getText(), passwordField.getText(), TCPServerIPField.getText(), TCPServerPortField.getText())){
-                isLogin = true;
-                localIPField.setDisable(true);
-                localPortField.setDisable(true);
-                usernameField.setDisable(true);
-                passwordField.setDisable(true);
-                loginLogoutButton.setText("Logout");
-            }
-            loginLogoutButton.setDisable(false);
+            new Thread(() -> {
+                Platform.runLater(() -> {
+                    if(Functions.login(usernameField.getText(), passwordField.getText(), TCPServerIPField.getText(), TCPServerPortField.getText())){
+                        isLogin = true;
+                        localIPField.setDisable(true);
+                        localPortField.setDisable(true);
+                        usernameField.setDisable(true);
+                        passwordField.setDisable(true);
+                        loginLogoutButton.setText("Logout");
+                    }
+                    loginLogoutButton.setDisable(false);
+                });
+
+            }).start();
 
         }
     }

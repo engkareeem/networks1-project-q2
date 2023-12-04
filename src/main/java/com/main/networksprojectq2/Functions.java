@@ -182,7 +182,7 @@ public class Functions {
             String message = "logout@" + username;
             outputStream.writeUTF(message);
 
-            // Stop the TCP Listener
+            ReceiverTCP.stopListening();
 
             outputStream.close();
             socket.close();

@@ -23,6 +23,13 @@ public class ReceiverTCP {
 
     }
 
+    public static void stopListening(){
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static boolean receiveTCP(int port) {
         init(port);
