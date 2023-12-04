@@ -143,7 +143,6 @@
       <TextField fx:id="remoteIPField" layoutX="533.0" layoutY="271.0" prefHeight="26.0" prefWidth="106.0" />
       <TextField fx:id="remotePortField" layoutX="533.0" layoutY="306.0" prefHeight="26.0" prefWidth="106.0" />
       <Button layoutX="543.0" layoutY="358.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Test" />
-      <Pane fx:id="onlineUsersPane" layoutX="686.0" layoutY="52.0" prefHeight="418.0" prefWidth="214.0" />
       <Label layoutX="754.0" layoutY="20.0" text="Online Users">
          <font>
             <Font size="14.0" />
@@ -157,5 +156,10 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <ScrollPane fx:id="onlineUsersPane" hbarPolicy="NEVER" layoutX="686.0" layoutY="52.0" prefHeight="418.0" prefWidth="214.0">
+         <content>
+            <VBox fx:id="onlineUsersVBox" prefWidth="418.0" />
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
