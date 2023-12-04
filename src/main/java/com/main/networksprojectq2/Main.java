@@ -20,6 +20,7 @@ public class Main extends Application {
         stage.show();
         stage.setOnCloseRequest(event -> {
             try {
+                Functions.logout();
                 exit(0);
             } catch (Exception e) {
                 throw new RuntimeException(e);

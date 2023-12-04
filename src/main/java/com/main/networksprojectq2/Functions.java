@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
 import java.text.SimpleDateFormat;
@@ -69,6 +70,12 @@ public class Functions {
     public static void changeStatus(String text, String ip, String port) {
         TextArea textArea = (TextArea) Controller.currentStage.getScene().lookup("#statusArea");
         textArea.setText(text + " IP = " + ip + ", Port = " + port);
+    }
+
+    public static void setStatus(String text) {
+        TextArea textArea = (TextArea) Controller.currentStage.getScene().lookup("#statusArea");
+        Platform.runLater(() -> textArea.setText(text));
+
     }
     public static void deleteMessage(String msgID) {
         try {
@@ -138,5 +145,49 @@ public class Functions {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public static boolean login(String username, String password, String serverIP, String serverPort){
+        boolean loggedIn = false;
+        try {
+            String localPort = ((TextField) Controller.currentStage.getScene().lookup("#localPortField")).getText();
+
+            Socket socket = new Socket(serverIP, Integer.parseInt(serverPort));
+            DataOutputStream outputStream = new DataOutputStream(
+                    socket.getOutputStream());
+
+            String message = "login@" + username + "@" + password + "@" + serverIP + "@" + serverPort;
+            outputStream.writeUTF(message);
+
+            loggedIn = ReceiverTCP.receiveTCP(Integer.parseInt(localPort));
+
+            outputStream.close();
+            socket.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return loggedIn;
+    }
+
+    public static void logout(){
+        try {
+            String serverIP = ((TextField) Controller.currentStage.getScene().lookup("#TCPServerIPField")).getText();
+            String serverPort = ((TextField) Controller.currentStage.getScene().lookup("#TCPServerPortField")).getText();
+            String username = ((TextField) Controller.currentStage.getScene().lookup("#usernameField")).getText();
+
+            Socket socket = new Socket(serverIP, Integer.parseInt(serverPort));
+            DataOutputStream outputStream = new DataOutputStream(
+                    socket.getOutputStream());
+
+            String message = "logout@" + username;
+            outputStream.writeUTF(message);
+
+            // Stop the TCP Listener
+
+            outputStream.close();
+            socket.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

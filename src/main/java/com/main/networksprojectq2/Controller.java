@@ -87,16 +87,31 @@ public class Controller implements Initializable {
 
 
     public void loginLogoutButtonClicked() {
-        // TODO: Login Logout Button
 
-        // if the login failed or the logout, return the function...
+
 
         if(isLogin) {
+            loginLogoutButton.setDisable(true);
+            Functions.logout();
             isLogin = false;
             loginLogoutButton.setText("Login");
+            localIPField.setDisable(false);
+            localPortField.setDisable(false);
+            usernameField.setDisable(false);
+            passwordField.setDisable(false);
+            loginLogoutButton.setDisable(false);
         } else {
-            isLogin = true;
-            loginLogoutButton.setText("Logout");
+            loginLogoutButton.setDisable(true);
+            if(Functions.login(usernameField.getText(), passwordField.getText(), TCPServerIPField.getText(), TCPServerPortField.getText())){
+                isLogin = true;
+                localIPField.setDisable(true);
+                localPortField.setDisable(true);
+                usernameField.setDisable(true);
+                passwordField.setDisable(true);
+                loginLogoutButton.setText("Logout");
+            }
+            loginLogoutButton.setDisable(false);
+
         }
     }
 
