@@ -44,9 +44,7 @@ public class ReceiverTCP {
 
             if(msg.split("@")[1].equalsIgnoreCase("notify")) {
                 onlineUsers = msg.substring(msg.indexOf('@', msg.indexOf('@') + 1) + 1).split("@");
-                for(String user :  onlineUsers){
-                    System.out.println(user);
-                }
+                Controller.updateOnlineUsers();
 
             } else if(msg.split("@")[1].equalsIgnoreCase("error")) {
                 String errorMsg = msg.split("@")[2];

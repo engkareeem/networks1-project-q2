@@ -12,6 +12,13 @@
 #onlineUsersPane {
     -fx-background-color: white;
 }
+
+.onlineUserLabel {
+    -fx-pref-width: 418;
+}
+.onlineUserLabel:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.14);
+}
 #sendButton {
     -fx-background-image: url('../img/send.png');
     -fx-background-size: contain;

@@ -108,6 +108,7 @@ public class Functions {
 
 
             while (networkInterfaces.hasMoreElements()) {
+
                 NetworkInterface networkInterface = networkInterfaces.nextElement();
                 if(networkInterface.getInetAddresses().hasMoreElements()){
                     String interfaceAddress = networkInterface.getInetAddresses().nextElement().getHostAddress();

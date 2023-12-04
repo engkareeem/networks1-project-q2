@@ -3,9 +3,12 @@ package com.main.networksprojectq2;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -88,6 +91,31 @@ public class Controller implements Initializable {
     }
 
 
+
+    public static void updateOnlineUsers() {
+        Platform.runLater(() -> {
+            VBox vbox = (VBox) currentStage.getScene().lookup("#onlineUsersVBox");
+            TextField ipField = (TextField) Controller.currentStage.getScene().lookup("#remoteIPField");
+            TextField portField = (TextField) Controller.currentStage.getScene().lookup("#remotePortField");
+
+            vbox.getChildren().clear();
+            for(String user: ReceiverTCP.onlineUsers) {
+                Label label = new Label(user);
+                label.getStyleClass().add("onlineUserLabel");
+                String ip = user.split(":")[1];
+                String port = user.split(":")[2];
+                label.setOnMouseClicked(mouseEvent -> {
+                    if(!ipField.getText().equals(ip) || !portField.getText().equals(port)) {
+                        ipField.setText(ip);
+                        portField.setText(port);
+                        Functions.deleteAllMessages();
+                    }
+                });
+                vbox.getChildren().add(label);
+            }
+        });
+
+    }
 
     public void loginLogoutButtonClicked() {
 
