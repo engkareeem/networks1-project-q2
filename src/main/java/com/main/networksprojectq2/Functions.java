@@ -150,13 +150,14 @@ public class Functions {
     public static boolean login(String username, String password, String serverIP, String serverPort){
         boolean loggedIn = false;
         try {
+            String localIp = ((TextField) Controller.currentStage.getScene().lookup("#localIPField")).getText();
             String localPort = ((TextField) Controller.currentStage.getScene().lookup("#localPortField")).getText();
 
             Socket socket = new Socket(serverIP, Integer.parseInt(serverPort));
             DataOutputStream outputStream = new DataOutputStream(
                     socket.getOutputStream());
 
-            String message = "login@" + username + "@" + password + "@" + serverIP + "@" + serverPort;
+            String message = "login@" + username + "@" + password + "@" + localIp + "@" + localPort;
             outputStream.writeUTF(message);
 
             loggedIn = ReceiverTCP.receiveTCP(Integer.parseInt(localPort));
