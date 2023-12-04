@@ -10,11 +10,13 @@ public class ReceiverTCP {
     public static String[] onlineUsers;
     private static ServerSocket serverSocket;
 
+    private static int listeningPort;
+
 
 
     public static void init(int port){
         try {
-
+            listeningPort = port;
             serverSocket = new ServerSocket(port);
 
         } catch (IOException e) {
@@ -32,7 +34,7 @@ public class ReceiverTCP {
     }
 
     public static boolean receiveTCP(int port) {
-        init(port);
+        if(listeningPort != port || serverSocket.isClosed()) init(port);
         Socket socket;
         boolean successLoggedIn = false;
         try {

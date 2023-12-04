@@ -97,19 +97,27 @@ public class Controller implements Initializable {
             localPortField.setDisable(false);
             usernameField.setDisable(false);
             passwordField.setDisable(false);
+            interfacesComboBox.setDisable(false);
             loginLogoutButton.setDisable(false);
         } else {
             loginLogoutButton.setDisable(true);
             new Thread(() -> {
-                Platform.runLater(() -> {
+
                     if(Functions.login(usernameField.getText(), passwordField.getText(), TCPServerIPField.getText(), TCPServerPortField.getText())){
+                        System.out.println("TEST");
                         isLogin = true;
+                        Platform.runLater(() -> {
                         localIPField.setDisable(true);
                         localPortField.setDisable(true);
                         usernameField.setDisable(true);
                         passwordField.setDisable(true);
+                        interfacesComboBox.setDisable(true);
                         loginLogoutButton.setText("Logout");
+                        });
+
                     }
+                Platform.runLater(() -> {
+
                     loginLogoutButton.setDisable(false);
                 });
 

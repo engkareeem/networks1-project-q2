@@ -160,6 +160,7 @@ public class Functions {
             String message = "login@" + username + "@" + password + "@" + localIp + "@" + localPort;
             outputStream.writeUTF(message);
 
+            ReceiverTCP.receiveTCP(Integer.parseInt(localPort));
             loggedIn = ReceiverTCP.receiveTCP(Integer.parseInt(localPort));
 
             outputStream.close();
