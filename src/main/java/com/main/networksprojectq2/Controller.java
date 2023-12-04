@@ -79,7 +79,7 @@ public class Controller implements Initializable {
 
         remoteIPField.setDisable(true);
         remotePortField.setDisable(true);
-        localIPField.setDisable(true);
+        sendToAllButton.setDisable(true);
 
 
         VBox vBox = new VBox();
@@ -97,13 +97,19 @@ public class Controller implements Initializable {
             VBox vbox = (VBox) currentStage.getScene().lookup("#onlineUsersVBox");
             TextField ipField = (TextField) Controller.currentStage.getScene().lookup("#remoteIPField");
             TextField portField = (TextField) Controller.currentStage.getScene().lookup("#remotePortField");
+            String username = ((TextField) Controller.currentStage.getScene().lookup("#usernameField")).getText();
+
+
+            boolean targetUserIsOnline = false;
 
             vbox.getChildren().clear();
             for(String user: ReceiverTCP.onlineUsers) {
+                if(user.split(":")[0].equalsIgnoreCase(username)) continue;
                 Label label = new Label(user);
                 label.getStyleClass().add("onlineUserLabel");
                 String ip = user.split(":")[1];
                 String port = user.split(":")[2];
+                if(ipField.getText().equals(ip) && portField.getText().equals(port)) targetUserIsOnline = true;
                 label.setOnMouseClicked(mouseEvent -> {
                     if(!ipField.getText().equals(ip) || !portField.getText().equals(port)) {
                         ipField.setText(ip);
@@ -113,25 +119,35 @@ public class Controller implements Initializable {
                 });
                 vbox.getChildren().add(label);
             }
+            if(!targetUserIsOnline){
+                Functions.deleteAllMessages();
+                ipField.clear();
+                portField.clear();
+            }
         });
 
     }
 
     public void loginLogoutButtonClicked() {
-
+        if(localIPField.getText().isEmpty() || localPortField.getText().isEmpty() || TCPServerIPField.getText().isEmpty() || TCPServerPortField.getText().isEmpty()) return;
         if(isLogin) {
             loginLogoutButton.setDisable(true);
             Functions.logout();
             isLogin = false;
             loginLogoutButton.setText("Login");
-            localIPField.setDisable(false);
+
             localPortField.setDisable(false);
             usernameField.setDisable(false);
             passwordField.setDisable(false);
             interfacesComboBox.setDisable(false);
             loginLogoutButton.setDisable(false);
+            sendToAllButton.setDisable(true);
             remoteIPField.clear();
             remotePortField.clear();
+            VBox vbox = (VBox) currentStage.getScene().lookup("#onlineUsersVBox");
+            vbox.getChildren().clear();
+            Functions.deleteAllMessages();
+
         } else {
             loginLogoutButton.setDisable(true);
             new Thread(() -> {
@@ -139,11 +155,12 @@ public class Controller implements Initializable {
                     if(Functions.login(usernameField.getText(), passwordField.getText(), TCPServerIPField.getText(), TCPServerPortField.getText())){
                         isLogin = true;
                         Platform.runLater(() -> {
-                        localIPField.setDisable(true);
+
                         localPortField.setDisable(true);
                         usernameField.setDisable(true);
                         passwordField.setDisable(true);
                         interfacesComboBox.setDisable(true);
+                        sendToAllButton.setDisable(false);
                         loginLogoutButton.setText("Logout");
                         });
 
@@ -170,19 +187,20 @@ public class Controller implements Initializable {
                 String id = generateMessageID();
                 Functions.sendUDP(message, ip, port, id);
                 chatField.clear();
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        Functions.addMessage(message,true, id); // TODO: There is an id
-                    }
-                });
+                Platform.runLater(() -> Functions.addMessage(message,true, id));
             }).start();
         }
     }
 
     public void sendToAllButtonClicked() {
-        // TODO: Send to all
+        if(!chatField.getText().isEmpty()) {
+            String message = chatField.getText();
+            String id = generateMessageID();
+            Functions.broadcastUDP(message, id);
+            chatField.clear();
+            Platform.runLater(() -> Functions.addMessage(message,true, id));
+
+        }
     }
 
     String generateMessageID() {

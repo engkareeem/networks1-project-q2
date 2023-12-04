@@ -144,6 +144,34 @@ public class Functions {
                 Functions.changeStatus("Sent a message to", ip, String.valueOf(port));
 
             }
+            ds.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void broadcastUDP(String message, String id) {
+
+        try {
+            String localIp = ((TextField) Controller.currentStage.getScene().lookup("#localIPField")).getText();
+            String localPort = ((TextField) Controller.currentStage.getScene().lookup("#localPortField")).getText();
+            String username = ((TextField) Controller.currentStage.getScene().lookup("#usernameField")).getText();
+            message = username + "@" + localIp + "@" + localPort + "@" + id + "@" + message;
+
+            DatagramSocket ds = new DatagramSocket();
+            byte[] buf;
+            buf = message.getBytes();
+            for(String user: ReceiverTCP.onlineUsers){
+                if(user.split(":")[0].equalsIgnoreCase(username)) continue;
+                String ip = user.split(":")[1];
+                String port = user.split(":")[2];
+                DatagramPacket DpSend = new DatagramPacket(buf, buf.length, InetAddress.getByName(ip), Integer.parseInt(port));
+                ds.send(DpSend);
+            }
+            Functions.setStatus("Broadcast a message to everyone");
+            ds.close();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -163,8 +191,10 @@ public class Functions {
             String message = "login@" + username + "@" + password + "@" + localIp + "@" + localPort;
             outputStream.writeUTF(message);
 
-            ReceiverTCP.receiveTCP(Integer.parseInt(localPort));
-            loggedIn = ReceiverTCP.receiveTCP(Integer.parseInt(localPort));
+            loggedIn = ReceiverTCP.receiveTCP(Integer.parseInt(localPort)) || ReceiverTCP.receiveTCP(Integer.parseInt(localPort));
+
+
+            ReceiverTCP.onlineUsersReceiver(Integer.parseInt(localPort));
 
             outputStream.close();
             socket.close();

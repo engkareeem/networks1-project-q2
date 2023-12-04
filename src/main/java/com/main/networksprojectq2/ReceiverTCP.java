@@ -12,6 +12,10 @@ public class ReceiverTCP {
 
     private static int listeningPort;
 
+    private static boolean keepListening = true;
+
+    private static Thread onlineUsersThread;
+
 
     public static void init(int port){
         try {
@@ -24,12 +28,58 @@ public class ReceiverTCP {
 
     }
 
+
     public static void stopListening(){
+        keepListening = false;
         try {
+            onlineUsersThread.interrupt();
             serverSocket.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+//            throw new RuntimeException(e);
         }
+    }
+
+    public static void onlineUsersReceiver(int port) {
+        keepListening = true;
+        if(serverSocket.isClosed()) init(port);
+        onlineUsersThread = new Thread(() -> {
+            while (keepListening){
+                Socket socket;
+
+                try {
+                    socket = serverSocket.accept();
+                    new Thread(() -> {
+                        try {
+
+                            DataInputStream inputStream = new DataInputStream(
+                                    new BufferedInputStream(socket.getInputStream()));
+                            String msg = inputStream.readUTF();
+                            System.out.println(msg);
+
+                            if(msg.split("@")[1].equalsIgnoreCase("notify")) {
+                                onlineUsers = msg.substring(msg.indexOf('@', msg.indexOf('@') + 1) + 1).split("@");
+                                Controller.updateOnlineUsers();
+
+                            }
+
+                            inputStream.close();
+                            socket.close();
+
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+
+
+                    }).start();
+                } catch (IOException e) {
+//                throw new RuntimeException(e);
+                }
+            }
+        });
+
+        onlineUsersThread.start();
+
+
     }
 
     public static boolean receiveTCP(int port) {

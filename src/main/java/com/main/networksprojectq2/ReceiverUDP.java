@@ -1,6 +1,7 @@
 package com.main.networksprojectq2;
 
 import javafx.application.Platform;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -57,6 +58,13 @@ public class ReceiverUDP {
             String username = msg.split("@")[0];
             String ip = msg.split("@")[1];
             String port = msg.split("@")[2];
+
+            Platform.runLater(() -> {
+                TextField ipField = (TextField) Controller.currentStage.getScene().lookup("#remoteIPField");
+                TextField portField = (TextField) Controller.currentStage.getScene().lookup("#remotePortField");
+                ipField.setText(ip);
+                portField.setText(port);
+            });
 
             msg = msg.substring(msg.indexOf('@', msg.indexOf('@', msg.indexOf('@') + 1) + 1) + 1);
             if(msg.contains("CMD")){
