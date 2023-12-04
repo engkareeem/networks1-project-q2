@@ -13,7 +13,6 @@ public class ReceiverTCP {
     private static int listeningPort;
 
 
-
     public static void init(int port){
         try {
             listeningPort = port;

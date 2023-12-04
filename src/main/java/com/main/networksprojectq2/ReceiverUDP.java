@@ -53,10 +53,12 @@ public class ReceiverUDP {
 //                throw new RuntimeException(e);
             }
             String msg = new String(packet.getData()).trim();
-            String ip = msg.split("@")[0];
-            String port = msg.split("@")[1];
+            System.out.println(msg);
+            String username = msg.split("@")[0];
+            String ip = msg.split("@")[1];
+            String port = msg.split("@")[2];
 
-            msg = msg.substring(msg.indexOf('@', msg.indexOf('@') + 1) + 1);
+            msg = msg.substring(msg.indexOf('@', msg.indexOf('@', msg.indexOf('@') + 1) + 1) + 1);
             if(msg.contains("CMD")){
                 processCommand(msg, ip, port);
                 continue;
@@ -65,8 +67,8 @@ public class ReceiverUDP {
             String msgBody = msg.split("@")[1];
 
             Platform.runLater(() -> {
-                Functions.changeStatus("Received a message from", ip, port);
-                Functions.addMessage(msgBody, false, msgId); // TODO: There is an id
+                Functions.changeStatus("Received a message from " + username + ":", ip, port);
+                Functions.addMessage(username + ": " + msgBody, false, msgId);
 
             });
             receiveArray = new byte[65535];
@@ -76,12 +78,12 @@ public class ReceiverUDP {
 
     public static void processCommand(String cmd, String ip, String port) {
         if(cmd.contains("delete@")) {
-            // TODO: delete a msg
+
             String id = cmd.split("@")[0];
             Functions.deleteMessage(id);
             Functions.changeStatus("A Message deleted by", ip, port);
         }else if(cmd.contains("deleteAll@")){
-            //TODO: delete all user message
+
             Functions.deleteAllMessages();
             Functions.changeStatus("All messages deleted by", ip, port);
 

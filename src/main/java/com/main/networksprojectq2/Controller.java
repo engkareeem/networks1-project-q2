@@ -74,6 +74,9 @@ public class Controller implements Initializable {
             interfacesComboBox.getItems().add(inter);
         }
 
+        remoteIPField.setDisable(true);
+        remotePortField.setDisable(true);
+        localIPField.setDisable(true);
 
 
         VBox vBox = new VBox();
@@ -99,12 +102,13 @@ public class Controller implements Initializable {
             passwordField.setDisable(false);
             interfacesComboBox.setDisable(false);
             loginLogoutButton.setDisable(false);
+            remoteIPField.clear();
+            remotePortField.clear();
         } else {
             loginLogoutButton.setDisable(true);
             new Thread(() -> {
 
                     if(Functions.login(usernameField.getText(), passwordField.getText(), TCPServerIPField.getText(), TCPServerPortField.getText())){
-                        System.out.println("TEST");
                         isLogin = true;
                         Platform.runLater(() -> {
                         localIPField.setDisable(true);

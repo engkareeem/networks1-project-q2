@@ -52,7 +52,8 @@ public class Functions {
         dateStackPane.getStyleClass().add("messageDatePane");
         dateStackPane.getChildren().add(messageDate);
 
-        messageText.setText(text);
+        String msgBody = sent? "Me: " + text : text;
+        messageText.setText(msgBody);
         messageText.setWrappingWidth(sent? 185: 210);
         messageText.getStyleClass().add("messageContentText");
 
@@ -128,7 +129,8 @@ public class Functions {
         try {
             String localIp = ((TextField) Controller.currentStage.getScene().lookup("#localIPField")).getText();
             String localPort = ((TextField) Controller.currentStage.getScene().lookup("#localPortField")).getText();
-            message =  localIp + "@" + localPort + "@" + id + "@" + message;
+            String username = ((TextField) Controller.currentStage.getScene().lookup("#usernameField")).getText();
+            message = username + "@" + localIp + "@" + localPort + "@" + id + "@" + message;
 
             DatagramSocket ds = new DatagramSocket();
             byte[] buf;
