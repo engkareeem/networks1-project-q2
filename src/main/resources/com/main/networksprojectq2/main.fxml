@@ -142,7 +142,7 @@
       </Label>
       <TextField fx:id="remoteIPField" layoutX="533.0" layoutY="271.0" prefHeight="26.0" prefWidth="106.0" />
       <TextField fx:id="remotePortField" layoutX="533.0" layoutY="306.0" prefHeight="26.0" prefWidth="106.0" />
-      <Button layoutX="543.0" layoutY="358.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Test" />
+      <Button fx:id="sendToAllButton" layoutX="450.0" layoutY="341.0" mnemonicParsing="false" onAction="#sendToAllButtonClicked" prefHeight="26.0" prefWidth="190.0" text="Send to all" />
       <Label layoutX="754.0" layoutY="20.0" text="Online Users">
          <font>
             <Font size="14.0" />

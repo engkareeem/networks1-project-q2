@@ -34,9 +34,9 @@ public class Controller implements Initializable {
     @FXML
     TextArea statusArea;
     @FXML
-    TextField usernameField,passwordField;
+    TextField usernameField, passwordField;
     @FXML
-    Button loginLogoutButton;
+    Button loginLogoutButton, sendToAllButton;
 
     boolean isLogin = false;
 
@@ -179,6 +179,10 @@ public class Controller implements Initializable {
                 });
             }).start();
         }
+    }
+
+    public void sendToAllButtonClicked() {
+        // TODO: Send to all
     }
 
     String generateMessageID() {
